@@ -5,12 +5,11 @@ import (
 	"errors"
 	"github.com/vildan-valeev/melvad_test/internal/domain"
 	"github.com/vildan-valeev/melvad_test/internal/transport/dto"
-	"math/rand"
 )
 
 // Repository - методы для работы с БД (интерфейс реализован в инфре)
 type Repository interface {
-	InsertUser(ctx context.Context, u domain.User) error
+	InsertUser(ctx context.Context, u domain.User) (id int64, err error)
 	UpdateUser(ctx context.Context, id int64) error
 }
 
@@ -26,21 +25,20 @@ func New(db Repository) *Service {
 }
 
 // CreateUser Создание пользователя.
-func (s Service) CreateUser(ctx context.Context, u dto.UserCreateDtoRequest) (int64, error) {
-	id := rand.Int63()
+func (s Service) CreateUser(ctx context.Context, u dto.UserCreateDtoRequest) (id int64, err error) {
 
 	if u.Name == "" {
-		// TODO: создать кастомные ошибки
+		// TODO: создать кастомные бизнесовые ошибки
 		return id, errors.New("Введите Имя")
 	}
 
 	user := domain.User{
-		ID:   rand.Int63(),
 		Name: u.Name,
 		Age:  u.Age,
 	}
 
-	if err := s.db.InsertUser(ctx, user); err != nil {
+	id, err = s.db.InsertUser(ctx, user)
+	if err != nil {
 		return id, err
 	}
 
@@ -48,7 +46,7 @@ func (s Service) CreateUser(ctx context.Context, u dto.UserCreateDtoRequest) (in
 }
 
 // UpdateUser Обновление пользователя.
-func (s Service) UpdateUser(ctx context.Context, user dto.UserUpdateDto) (uint8, error) {
+func (s Service) UpdateUser(ctx context.Context, user dto.UserUpdateDtoRequest) (uint8, error) {
 	//return s.db.UpdateUser(ctx, &itemID)
 	// query to redis
 	return user.Value + 1, nil

@@ -2,6 +2,7 @@ package database
 
 import (
 	"github.com/jackc/pgx/v5/tracelog"
+	"github.com/vildan-valeev/melvad_test/pkg/database/zerologadapter"
 )
 
 // Option -.

@@ -39,10 +39,10 @@ func (t *Transport) Register() *fiber.App {
 */
 
 type Sign interface {
-	Sign(ctx context.Context, category domain.Sign) error
+	Sign(ctx context.Context, s dto.SignDtoRequest) (domain.Sign, error)
 }
 
 type User interface {
 	CreateUser(ctx context.Context, u dto.UserCreateDtoRequest) (int64, error)
-	UpdateUser(ctx context.Context, u dto.UserUpdateDto) (uint8, error)
+	UpdateUser(ctx context.Context, u dto.UserUpdateDtoRequest) (uint8, error)
 }

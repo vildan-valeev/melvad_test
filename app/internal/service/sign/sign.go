@@ -3,6 +3,7 @@ package sign
 import (
 	"context"
 	"github.com/vildan-valeev/melvad_test/internal/domain"
+	"github.com/vildan-valeev/melvad_test/internal/transport/dto"
 )
 
 // Repository - методы для работы с БД (интерфейс реализован в инфре)
@@ -21,6 +22,10 @@ func New(db Repository) *Service {
 }
 
 // Sign Создание запроса на платеж.
-func (c Service) Sign(ctx context.Context, sign domain.Sign) error {
-	return c.db.SaveSign(ctx, sign)
+func (c Service) Sign(ctx context.Context, s dto.SignDtoRequest) (domain.Sign, error) {
+	var sign domain.Sign
+	//return c.db.SaveSign(ctx, sign)
+
+	return sign, nil
+
 }

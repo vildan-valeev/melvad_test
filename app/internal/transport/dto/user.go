@@ -1,9 +1,13 @@
 package dto
 
-type UserUpdateDto struct {
+type UserUpdateDtoRequest struct {
 	ID    int64  `json:"id,omitempty"`
 	Key   string `json:"key,omitempty"`
 	Value uint8  `json:"value,omitempty"`
+}
+
+type UserUpdateDtoResponse struct {
+	Value uint8 `json:"value"`
 }
 
 type UserCreateDtoRequest struct {
