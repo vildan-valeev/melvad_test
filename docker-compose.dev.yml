@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: melvad_db
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data/
+#      - ./compose/postgres/initdb:/docker-entrypoint-initdb.d
+#    environment:
+#      - POSTGRES_NAME=postgres
+#      - POSTGRES_USER=postgres
+#      - POSTGRES_PASSWORD=postgres
+    env_file:
+      - dev.env
+#    restart: unless-stopped
+    ports:
+      - "5432:5432"
+
+  cache:
+    container_name: melvad_cache
+    image: redis:7.2.2
+    env_file:
+      - dev.env
+    ports:
+      - '6379:6379'
+    hostname: localhost
