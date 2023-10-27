@@ -29,3 +29,10 @@ func (c Service) Sign(ctx context.Context, s dto.SignDtoRequest) (domain.Sign, e
 	return sign, nil
 
 }
+func toHMAC(text, key string) string {
+
+}
+
+func toHEX(string2 string) string {
+	return string2
+}
