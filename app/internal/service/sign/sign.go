@@ -2,8 +2,13 @@ package sign
 
 import (
 	"context"
+	"crypto/hmac"
+	"crypto/sha512"
+	"encoding/hex"
+	"github.com/rs/zerolog/log"
 	"github.com/vildan-valeev/melvad_test/internal/domain"
 	"github.com/vildan-valeev/melvad_test/internal/transport/dto"
+	"io"
 )
 
 // Repository - методы для работы с БД (интерфейс реализован в инфре)
@@ -21,18 +26,22 @@ func New(db Repository) *Service {
 	}
 }
 
-// Sign Создание запроса на платеж.
+// Sign Создание подписи.
 func (c Service) Sign(ctx context.Context, s dto.SignDtoRequest) (domain.Sign, error) {
 	var sign domain.Sign
-	//return c.db.SaveSign(ctx, sign)
+
+	sign.Hash = encode(s.Text, s.Key)
 
 	return sign, nil
 
 }
-func toHMAC(text, key string) string {
 
-}
-
-func toHEX(string2 string) string {
-	return string2
+// To HMAC, then to HEX
+func encode(text, key string) string {
+	hash := hmac.New(sha512.New, []byte(key))
+	_, err := io.WriteString(hash, text)
+	if err != nil {
+		log.Info().Err(err)
+	}
+	return hex.EncodeToString(hash.Sum(nil))
 }

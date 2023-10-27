@@ -13,6 +13,6 @@ type SignDtoResponse struct {
 
 func ToDTO(sign domain.Sign) SignDtoResponse {
 	return SignDtoResponse{
-		Code: sign.HMAC,
+		Code: sign.Hash,
 	}
 }
