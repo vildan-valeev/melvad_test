@@ -6,8 +6,12 @@ import (
 
 type Repository struct {
 	db infra.DB
+	rs infra.RedisCache
 }
 
-func New(db infra.DB) *Repository {
-	return &Repository{db: db}
+func New(db infra.DB, rs infra.RedisCache) *Repository {
+	return &Repository{
+		db: db,
+		rs: rs,
+	}
 }

@@ -9,7 +9,6 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/requestid"
 	"github.com/rs/zerolog/log"
 	"github.com/vildan-valeev/melvad_test/internal/config"
-
 	"github.com/vildan-valeev/melvad_test/pkg/logger"
 	"net"
 )
@@ -38,7 +37,7 @@ func New(cfg config.Config, handlers *fiber.App) *Server {
 	s.http.Use(compress.New(compress.Config{Level: compress.LevelBestSpeed}))
 
 	// TODO: s.http.Group...
-	s.http.Mount("/api/v1", handlers)
+	s.http.Mount("/", handlers)
 
 	return s
 }

@@ -6,7 +6,7 @@ import (
 	"github.com/vildan-valeev/melvad_test/internal/infra"
 )
 
-func UpdateUser(ctx context.Context, db infra.DB, id int64) error {
+func UpdateUser(ctx context.Context, db infra.DB, u domain.User) error {
 	return nil
 }
 
@@ -23,7 +23,7 @@ func InsertUser(ctx context.Context, db infra.DB, u domain.User) (int64, error) 
 	}()
 
 	if err := tx.QueryRow(ctx,
-		`INSERT INTO users (name, age) VALUES ($1, $2) ON CONFLICT ON CONSTRAINT users_id_key DO UPDATE SET name=EXCLUDED.name, age=EXCLUDED.age RETURNING id`,
+		`INSERT INTO users (name, age) VALUES ($1, $2) ON CONFLICT ON CONSTRAINT users_pkey DO UPDATE SET name=EXCLUDED.name, age=EXCLUDED.age RETURNING id`,
 		u.Name,
 		u.Age,
 	).Scan(&id); err != nil {

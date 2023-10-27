@@ -44,5 +44,5 @@ type Sign interface {
 
 type User interface {
 	CreateUser(ctx context.Context, u dto.UserCreateDtoRequest) (int64, error)
-	UpdateUser(ctx context.Context, u dto.UserUpdateDtoRequest) (uint8, error)
+	UpdateUserInCache(ctx context.Context, u *dto.UserUpdateDtoRequest) (uint8, error)
 }

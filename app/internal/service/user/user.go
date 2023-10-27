@@ -10,7 +10,8 @@ import (
 // Repository - методы для работы с БД (интерфейс реализован в инфре)
 type Repository interface {
 	InsertUser(ctx context.Context, u domain.User) (id int64, err error)
-	UpdateUser(ctx context.Context, id int64) error
+	UpdateUser(ctx context.Context, u domain.User) error
+	UpdateUserInCache(ctx context.Context, u domain.User) error
 }
 
 // Service - бизнес логика.
@@ -46,8 +47,16 @@ func (s Service) CreateUser(ctx context.Context, u dto.UserCreateDtoRequest) (id
 }
 
 // UpdateUser Обновление пользователя.
-func (s Service) UpdateUser(ctx context.Context, user dto.UserUpdateDtoRequest) (uint8, error) {
+func (s Service) UpdateUserInCache(ctx context.Context, user *dto.UserUpdateDtoRequest) (uint8, error) {
+	incrementedAgeUser := domain.User{
+		Name: user.Key,
+		Age:  user.Value + 1,
+	}
+	err := s.db.UpdateUserInCache(ctx, incrementedAgeUser)
+	if err != nil {
+		return user.Value, err
+	}
 	//return s.db.UpdateUser(ctx, &itemID)
 	// query to redis
-	return user.Value + 1, nil
+	return incrementedAgeUser.Age, nil
 }

@@ -3,9 +3,9 @@ package infra
 import (
 	"context"
 	"errors"
-
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgconn"
+	"github.com/redis/go-redis/v9"
 )
 
 type (
@@ -67,3 +67,18 @@ type Batcher interface {
 func NotFound(err error) bool {
 	return errors.Is(err, pgx.ErrNoRows)
 }
+
+// RS In memory cache Redis.
+type RedisCache interface {
+	RedisQuery
+	//RedisCommand
+}
+type RedisQuery interface {
+	HSet(ctx context.Context, key string, values ...interface{}) *redis.IntCmd
+	Pipelined(ctx context.Context, fn func(redis.Pipeliner) error) ([]redis.Cmder, error)
+	HGetAll(ctx context.Context, key string) *redis.MapStringStringCmd
+}
+
+//type RedisCommand interface {
+//	Scan(ctx context.Context, key string) *redis.MapStringStringCmd
+//}

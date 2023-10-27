@@ -10,6 +10,7 @@ import (
 	"github.com/vildan-valeev/melvad_test/internal/service/sign"
 	v1 "github.com/vildan-valeev/melvad_test/internal/transport/http/v1"
 	"github.com/vildan-valeev/melvad_test/pkg/database"
+	redis "github.com/vildan-valeev/melvad_test/pkg/database_redis"
 
 	"github.com/vildan-valeev/melvad_test/internal/service/user"
 
@@ -64,6 +65,8 @@ func main() {
 type Main struct {
 	// DB used by postgres service implementations.
 	db db
+	// Redis cache
+	rs rs
 	// HTTP server for handling communication.
 	Srv *server.Server
 }
@@ -81,7 +84,13 @@ func (m *Main) Run(ctx context.Context) (err error) {
 
 	m.db = database.New(cfg.DSN, cfg.LogLevel)
 
+	m.rs = redis.New(cfg.RedisHost, cfg.RedisPort)
+
 	if err := m.db.Open(ctx); err != nil {
+		return err
+	}
+
+	if err := m.rs.Open(ctx); err != nil {
 		return err
 	}
 
@@ -92,7 +101,7 @@ func (m *Main) Run(ctx context.Context) (err error) {
 	return m.Srv.Open()
 }
 func (m *Main) init(ctx context.Context, cfg *config.Config) error {
-	ur := userRepo.New(m.db)
+	ur := userRepo.New(m.db, m.rs)
 	sr := signRepo.New(m.db)
 
 	userService := user.New(ur)
@@ -125,4 +134,11 @@ type db interface {
 	Close() error
 
 	infra.Database
+}
+
+type rs interface {
+	Open(context.Context) error
+	Close() error
+
+	infra.RedisCache
 }

@@ -11,5 +11,5 @@ comment on table users is 'Список пользователей';
 comment on column users.id is 'id пользователя';
 comment on column users.name is 'Имя';
 comment on column users.age is 'Возраст';
-
+-- Задать индексы contraints
 

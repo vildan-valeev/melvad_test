@@ -15,12 +15,12 @@ func (t *Transport) UserUpdate(c *fiber.Ctx) error {
 		return c.SendStatus(http.StatusBadRequest)
 	}
 
-	id, err := t.user.UpdateUser(c.Context(), *user)
+	age, err := t.user.UpdateUserInCache(c.Context(), user)
 	if err != nil {
 		return c.SendStatus(http.StatusBadRequest)
 	}
 
-	response := dto.UserUpdateDtoResponse{Value: id}
+	response := dto.UserUpdateDtoResponse{Value: age}
 
 	return c.Status(http.StatusOK).JSON(response)
 }
