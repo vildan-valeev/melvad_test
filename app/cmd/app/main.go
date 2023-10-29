@@ -117,7 +117,7 @@ func (m *Main) init(ctx context.Context, cfg *config.Config) error {
 }
 
 // Close gracefully stops the program.
-func (m *Main) Close() (err error) { //nolint
+func (m *Main) Close() (err error) {
 	if m.Srv != nil {
 		err = m.Srv.Close()
 	}

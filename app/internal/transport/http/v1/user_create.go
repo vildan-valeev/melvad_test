@@ -21,5 +21,6 @@ func (t *Transport) UserCreate(c *fiber.Ctx) error {
 		return c.SendStatus(http.StatusBadRequest)
 	}
 	response := dto.UserCreateDtoResponse{ID: id}
+
 	return c.Status(http.StatusOK).JSON(response)
 }

@@ -1,6 +1,7 @@
 package config
 
 import (
+	"flag"
 	"github.com/caarlos0/env/v9"
 	"github.com/rs/zerolog/log"
 )
@@ -24,6 +25,13 @@ func NewConfig() *Config {
 	if err := env.Parse(cfg); err != nil {
 		log.Fatal().Err(err).Msg("parse env")
 	}
+
+	redisHost := flag.String("n", "0.0.0.0", "workers count")
+	redisPort := flag.String("n", "6379", "workers count")
+	flag.Parse()
+
+	cfg.RedisHost = *redisHost
+	cfg.RedisPort = *redisPort
 
 	return cfg
 }

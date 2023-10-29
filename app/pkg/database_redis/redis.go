@@ -2,8 +2,9 @@ package database_redis
 
 import (
 	"context"
-	"github.com/redis/go-redis/v9"
 	"net"
+
+	"github.com/redis/go-redis/v9"
 )
 
 type cache struct {
@@ -18,7 +19,6 @@ func New(host, port string) *cache {
 		redisHost: host,
 		redisPort: port,
 	}
-
 }
 
 func (rs *cache) Open(ctx context.Context) error {

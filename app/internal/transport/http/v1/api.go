@@ -21,7 +21,6 @@ func NewTransport(di DI) *Transport {
 		user: di.User,
 		sign: di.Sign,
 	}
-
 }
 
 func (t *Transport) Register() *fiber.App {
@@ -35,7 +34,7 @@ func (t *Transport) Register() *fiber.App {
 }
 
 /*
-Интерфейсы от бизнес слоя
+Интерфейсы от бизнес слоя.
 */
 
 type Sign interface {

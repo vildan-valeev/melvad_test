@@ -2,9 +2,10 @@ package database_test
 
 import (
 	"context"
-	"github.com/vildan-valeev/melvad_test/pkg/database"
 	"os"
 	"testing"
+
+	"github.com/vildan-valeev/melvad_test/pkg/database"
 )
 
 func TestNewPooll(t *testing.T) {

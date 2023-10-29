@@ -59,6 +59,5 @@ func (s *Server) Open() error {
 
 // Close gracefully shuts down the server.
 func (s *Server) Close() error {
-
 	return s.http.Shutdown()
 }

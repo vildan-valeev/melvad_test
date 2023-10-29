@@ -22,7 +22,7 @@ up_local_app:
 
 .PHONY: lint
 lint:
-	cd app && golangci-lint run --config ./build/ci/.golangci.yml ./...
+	cd app && golangci-lint run --config ./build/.golangci.yml ./...
 
 .PHONY: test
 test:

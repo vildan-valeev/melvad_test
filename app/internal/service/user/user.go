@@ -3,11 +3,12 @@ package user
 import (
 	"context"
 	"errors"
+
 	"github.com/vildan-valeev/melvad_test/internal/domain"
 	"github.com/vildan-valeev/melvad_test/internal/transport/dto"
 )
 
-// Repository - методы для работы с БД (интерфейс реализован в инфре)
+// Repository - методы для работы с БД (интерфейс реализован в инфре).
 type Repository interface {
 	InsertUser(ctx context.Context, u domain.User) (id int64, err error)
 	UpdateUser(ctx context.Context, u domain.User) error
@@ -27,10 +28,9 @@ func New(db Repository) *Service {
 
 // CreateUser Создание пользователя.
 func (s Service) CreateUser(ctx context.Context, u dto.UserCreateDtoRequest) (id int64, err error) {
-
 	if u.Name == "" {
 		// TODO: создать кастомные бизнесовые ошибки
-		return id, errors.New("Введите Имя")
+		return id, errors.New("введите Имя")
 	}
 
 	user := domain.User{

@@ -1,12 +1,13 @@
 package logger
 
 import (
-	"github.com/mattn/go-isatty"
-	"github.com/rs/zerolog"
-	"github.com/rs/zerolog/log"
 	"os"
 	"runtime"
 	"time"
+
+	"github.com/mattn/go-isatty"
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 )
 
 func SetupLogging() {

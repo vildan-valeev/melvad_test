@@ -48,5 +48,4 @@ func TestToHMAC(t *testing.T) {
 			}
 		})
 	}
-
 }

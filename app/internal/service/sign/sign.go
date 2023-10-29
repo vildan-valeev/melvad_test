@@ -11,7 +11,7 @@ import (
 	"io"
 )
 
-// Repository - методы для работы с БД (интерфейс реализован в инфре)
+// Repository - методы для работы с БД (интерфейс реализован в инфре).
 type Repository interface {
 	SaveSign(ctx context.Context, sign domain.Sign) error // Не задействован!!!
 }
@@ -33,15 +33,16 @@ func (c Service) Sign(ctx context.Context, s dto.SignDtoRequest) (domain.Sign, e
 	sign.Hash = encode(s.Text, s.Key)
 
 	return sign, nil
-
 }
 
-// To HMAC, then to HEX
+// To HMAC, then to HEX.
 func encode(text, key string) string {
 	hash := hmac.New(sha512.New, []byte(key))
+
 	_, err := io.WriteString(hash, text)
 	if err != nil {
 		log.Info().Err(err)
 	}
+
 	return hex.EncodeToString(hash.Sum(nil))
 }
