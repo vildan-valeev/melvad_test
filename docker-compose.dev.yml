@@ -13,7 +13,7 @@ services:
 #      - POSTGRES_PASSWORD=postgres
     env_file:
       - dev.env
-#    restart: unless-stopped
+
     ports:
       - "5432:5432"
 

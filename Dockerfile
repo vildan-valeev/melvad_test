@@ -7,13 +7,13 @@ WORKDIR /app
 
 COPY ./app/go.mod .
 COPY ./app/go.sum .
-#RUN go mod download
+RUN go mod download
 
 COPY app/ ./
 
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ./build/main ./cmd/app/main.go
 
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 WORKDIR /
 
@@ -21,4 +21,4 @@ COPY --from=builder ./app/build/main main
 
 EXPOSE 8000
 
-ENTRYPOINT ["./main", "-n=5"]
+ENTRYPOINT ["./main", "-host=0.0.0.0", "-port=5555"]

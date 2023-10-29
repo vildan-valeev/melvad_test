@@ -30,7 +30,7 @@ func NewMigration(ctx context.Context) (Migrator, error) {
 	if err := env.Parse(&cfg); err != nil {
 		return Migrator{}, err
 	}
-
+	fmt.Println("MIGRATOR DSN", cfg.DSN)
 	conn, err := pgx.Connect(ctx, cfg.DSN)
 	if err != nil {
 		return Migrator{}, err
