@@ -1,0 +1,64 @@
+{
+	"info": {
+		"_postman_id": "ee80ac2f-c8d7-4474-a362-d9f360de6929",
+		"name": "Melvad",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "12475380"
+	},
+	"item": [
+		{
+			"name": "redis",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"key\": \"age\",\n    \"value\": 19\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8000/redis/incr"
+			},
+			"response": []
+		},
+		{
+			"name": "sign",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"text\": \"test\",\n    \"key\": \"test123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8000/sign/hmacsha512"
+			},
+			"response": []
+		},
+		{
+			"name": "postgres",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Alex\",\n    \"age\": 21\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "0.0.0.0:8000/postgres/users"
+			},
+			"response": []
+		}
+	]
+}
